@@ -59,7 +59,6 @@ function Page2() {
 // onpopstate에서 event.state가 있는데 onpopstate에서 넘겨주는 그 값이 첫번째 매개변수의 값
 // 두번쨰는 타이틀, 중요하지 않음
 // 세번쨰는 url 클릭하면 주소창에 설정한 값이 보임
-// 
 
 ReactDOM.render(
   <React.StrictMode>
