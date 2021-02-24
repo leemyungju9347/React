@@ -15,11 +15,11 @@ const Header = styled.header`
     padding:0 10px;
     background-color:rgba(20,20,20,0.8);
     box-shadow: 0px 1px 5px 2px rgba(0,0,0,0.8)
-`
+`;
 
 const List = styled.ul`
     display:flex; 
-`
+`;
 
 // &:hover{
 //     background-color:blue
@@ -31,7 +31,7 @@ const Item = styled.li`
     text-align:center;
     border-bottom:5px solid ${props => props.current ? '#e74c3c' : 'transparent' };
     transition:border-bottom .5s ease-in-out
-`
+`;
 
 // &:not(:last-child) {
 //     margin-right:10px
@@ -42,7 +42,7 @@ const SLink = styled(Link)`
     display:flex;
     align-items:center;
     justify-content:center;
-`
+`;
 
 
 const MainHeader = ({ location:{ pathname }}) => {
