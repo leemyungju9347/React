@@ -6,17 +6,29 @@ class SearchContainer extends React.Component {
     state = {
         movieResults:null,
         tvResults:null,
-        searchTerm:'code',
+        searchTerm:'',
         error:null,
         loading:false
 
     }
 
-    handleSubmit = () => {
+    handleSubmit = event => {
+        event.preventDefault();
+
         const { searchTerm } = this.state 
         if( searchTerm !== '' ) {
             this.searchByTerm()
         }
+    }
+
+    updateTerm = event => {
+        const {target : { value }} = event;
+
+        this.setState({
+            searchTerm:value
+        })
+
+        console.log(value);
     }
 
     searchByTerm = async() => {
@@ -61,6 +73,7 @@ class SearchContainer extends React.Component {
             error={error} 
             loading={loading}
             handleSubmit={this.handleSubmit}
+            updateTerm={this.updateTerm}
         />
         // 누군가가 폼을 제출할때 handleSubmit 호출할 예정
     }

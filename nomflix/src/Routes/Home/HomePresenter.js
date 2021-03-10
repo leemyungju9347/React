@@ -1,33 +1,66 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
+import {Helmet} from 'react-helmet-async';
 import styled from 'styled-components'
 import Section from 'Components/Section';
 import Loader from 'Components/Loader';
+import Poster from 'Components/Poster';
 
 
 const Container = styled.div`
-    padding:10px;
+    padding:20px;
 `;
 
-const HomePresenter = ({ nowPlaying,popular,upcoming,error,loading }) => loading ? <Loader/> : 
-   ( <Container>
-        { nowPlaying && nowPlaying.length > 0 && (
-            <Section title="Now Playing">
-                { nowPlaying.map(movie => <span key={movie.id}>{movie.title}</span>) }
-            </Section>
+const HomePresenter = ({ nowPlaying,popular,upcoming,error,loading }) => (
+    <>
+        <Helmet>
+            <title>Movies | Nomflix</title>
+        </Helmet>
+        { loading ? <Loader/> 
+        : ( <Container>
+                { nowPlaying && nowPlaying.length > 0 && (
+                    <Section title="Now Playing">
+                        { nowPlaying.map(movie => <Poster 
+                            key={movie.id}
+                            id={movie.id} 
+                            title={movie.title} 
+                            rating={movie.vote_average}
+                            imgUrl={movie.poster_path}
+                            isMovie={true}
+                            year={movie.release_date.substring(0,4)} 
+                        />) }
+                    </Section>
+                )}
+                { upcoming && upcoming.length > 0 && (
+                    <Section title="Upcoming Movies">
+                        { upcoming.map(movie => <Poster 
+                            key={movie.id} 
+                            id={movie.id} 
+                            title={movie.title}
+                            rating={movie.vote_average} 
+                            imgUrl={movie.poster_path} 
+                            isMovie={true}
+                            year={movie.release_date.substring(0,4)} 
+                        /> ) }
+                    </Section>
+                )}
+                { popular && popular.length > 0 && (
+                    <Section title="Popular Movies">
+                        { popular.map(movie => <Poster 
+                            key={movie.id} 
+                            id={movie.id} 
+                            title={movie.title}
+                            rating={movie.vote_average} 
+                            imgUrl={movie.poster_path} 
+                            isMovie={true}
+                            year={movie.release_date.substring(0,4)} 
+                        /> ) }
+                    </Section>
+                )}
+            </Container>
         )}
-        { upcoming && upcoming.length > 0 && (
-            <Section title="Upcoming Movies">
-                { upcoming.map(movie => <span key={movie.id}>{movie.title}</span>) }
-            </Section>
-        )}
-        { popular && popular.length > 0 && (
-            <Section title="Popular Movies">
-                { popular.map(movie => <span key={movie.id}>{movie.title}</span>) }
-            </Section>
-        )}
-    </Container>
-);
+    </>
+)
 
 HomePresenter.propType = {
     nowPlaying:PropTypes.array,
