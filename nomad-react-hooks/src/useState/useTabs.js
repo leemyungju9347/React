@@ -22,7 +22,7 @@ const useTabs = (initTab, allTabs) => {
   };
 };
 
-export default function App() {
+export default function AppComponent() {
   const { currentItem, changeItem } = useTabs(0, content);
 
   return (
