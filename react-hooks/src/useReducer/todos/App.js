@@ -1,32 +1,11 @@
 import React, { useReducer, useState } from "react";
-import {v4 as uuid} from 'uuid'
-
-const initState = {
-  toDos:[]
-};
-const ADD = 'add';
-const DEL = 'del'
-
-
-const reducer = (state,action) => {
-  console.log(action);
-  console.log('리듀서의 state',state);
-  switch(action.type) {
-    case ADD:
-      return { toDos : [...state.toDos, {text: action.payload, id : uuid()}] }
-    case DEL:
-      return { toDos : state.toDos.filter(toDo => toDo.id !== action.payload) }
-    default:
-      return;
-  }
-  
-}
+import reducer, {initState, ADD, DEL, COMPLETED, UNCOMPLETED} from './reducer'
 
 function App() {
   const [state,dispatch] = useReducer(reducer,initState);
   const [newToDo, setNewToDo] = useState('');
 
-  console.log('APP component의 state',state);
+  // console.log('APP component의 state',state);
   const onSubmit = ev => {
     ev.preventDefault();
 
@@ -56,8 +35,26 @@ function App() {
             <li key={toDo.id}>
               <span>{toDo.text}</span>
               <button onClick={()=> dispatch({type:DEL, payload:toDo.id})}>❌</button>
+              <button onClick={()=> dispatch({type:COMPLETED, payload:toDo.id})}>✅</button>
             </li>
           ))
+        }
+      </ul>
+      <ul>
+        {
+          state.completed.length !== 0 && (
+            <>
+              <h2>Completed</h2>
+              { state.completed.map(toDo => (
+                  <li key={toDo.id}>
+                    <span>{toDo.text}</span>
+                    <button onClick={()=> dispatch({type:DEL, payload:toDo.id})}>❌</button>
+                    <button onClick={()=> dispatch({type:UNCOMPLETED, payload:toDo.id})}>👍🏻</button>
+                  </li>
+                ))
+              }
+            </>
+          )
         }
       </ul>
     </div>

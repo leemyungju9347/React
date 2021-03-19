@@ -1,8 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import App from './components/App';
+import ToDosProvider from './context';
 
 ReactDOM.render(
-    <App />,
+  <ToDosProvider>
+    <App />
+  </ToDosProvider>,
   document.getElementById('root')
 );
